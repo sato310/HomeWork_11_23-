@@ -9,7 +9,7 @@ package com.sato310.homework_11_23;
 
 public final class Manifest {
     public static final class permission {
-        /**  GoogleMap_APIに必要なパーミッション群 ここから　
+        /**  GoogleMap_APIに必要なパーミッション群 ここから　 
          */
         public static final String MAPS_RECEIVE="jp.smartdt.movemap.permission.MAPS_RECEIVE";
     }

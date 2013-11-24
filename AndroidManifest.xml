@@ -7,32 +7,32 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
-    
-	<!-- 電話をかけるのに必要なパーミッション　-->
+
+    <!-- 電話をかけるのに必要なパーミッション　 -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <!-- GoogleMap_APIに必要なパーミッション群 ここから　-->
+    <!-- GoogleMap_APIに必要なパーミッション群 ここから　 -->
     <permission
         android:name="jp.smartdt.movemap.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" >
     </permission>
- 
+
     <uses-permission android:name="jp.smartdt.movemap.permission.MAPS_RECEIVE" />
- 
+
     <!-- Google API へのアクセス -->
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
- 
+
     <!-- インターネットへのアクセス -->
     <uses-permission android:name="android.permission.INTERNET" />
- 
+
     <!-- 外部SDカードへの書き込み -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
- 
+
     <!-- 位置情報の取得 (Wi-Fi経由) -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
- 
+
     <!-- 位置情報の取得 (GPS経由) -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!-- GoogleMap_APIに必要なパーミッション群 ここまで　-->
+    <!-- GoogleMap_APIに必要なパーミッション群 ここまで　 -->
 
     <application
         android:allowBackup="true"
@@ -47,17 +47,44 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!-- http://www.dhw.co.jp/ 　にアクセスしたら一覧に表示させる　ココから -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="www.dhw.co.jp"
+                    android:path="/"
+                    android:scheme="http" />
+            </intent-filter>
+            <!-- http://www.dhw.co.jp/ 　にアクセスしたら一覧に表示させる　ココまで -->
+            
         </activity>
+        <!-- SCREEN_OFF or SCREEN_ON は特例でマニフェストへの定義では動かない。 ココから -->
+                ソースコードで実装する必要がある。
+        <receiver android:name=".OffReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.SCREEN_OFF" />
+            </intent-filter>
+        </receiver>
+        <!-- 機内モードになったらLogに出力する -->
+        <receiver android:name=".SampleMode">
+            <intent-filter>
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL"/>
+                <action android:name="android.intent.action.AIRPLANE_MODE"/>
+            </intent-filter>
+        </receiver>        
+        <!-- SCREEN_OFF or SCREEN_ON は特例でマニフェストへの定義では動かない。 ココまで -->
+
         <activity
             android:name="com.sato310.homework_11_23.MapActivity"
             android:label="@string/title_activity_map" >
         </activity>
-        
-                <!-- GoogleMapsを使用するAPIキーとか -->
+
+        <!-- GoogleMapsを使用するAPIキーとか -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAdwh1CwL7KsE03D2iCNwlhbYmYyV8DSEI" />
-
     </application>
 
 </manifest>
